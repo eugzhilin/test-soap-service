@@ -23,18 +23,32 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return new ServletRegistrationBean(servlet, "/ws/*");
 	}
 
-	@Bean(name = "countries")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+	@Bean(name = "events")
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema eventsSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("CountriesPort");
+		wsdl11Definition.setPortTypeName("Events");
 		wsdl11Definition.setLocationUri("/ws");
 		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-		wsdl11Definition.setSchema(countriesSchema);
+		wsdl11Definition.setSchema(eventsSchema);
 		return wsdl11Definition;
 	}
 
+
+
 	@Bean
-	public XsdSchema countriesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
+	public XsdSchema eventsSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("events.xsd"));
+	}
+	@Bean
+	public XsdSchema authSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("authenticate.xsd"));
+	}
+	@Bean
+	public XsdSchema devicesSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("devices.xsd"));
+	}
+	@Bean
+	public XsdSchema carsSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("cars.xsd"));
 	}
 }

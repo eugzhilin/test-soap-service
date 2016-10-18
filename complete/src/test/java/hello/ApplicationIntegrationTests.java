@@ -18,6 +18,9 @@ package hello;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sun.org.apache.xerces.internal.jaxp.datatype.DatatypeFactoryImpl;
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+import io.spring.guides.gs_producing_web_service.GetEventsRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +32,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ClassUtils;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
-import io.spring.guides.gs_producing_web_service.GetCountryRequest;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.sql.Date;
+import java.time.Instant;
+import java.util.GregorianCalendar;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -42,15 +51,30 @@ public class ApplicationIntegrationTests {
 
     @Before
     public void init() throws Exception {
-        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetCountryRequest.class));
+        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetEventsRequest.class));
         marshaller.afterPropertiesSet();
     }
-
+    private static DatatypeFactory datatypeFactory;
+    static{
+        try {
+            datatypeFactory = DatatypeFactory.newInstance();
+        } catch (DatatypeConfigurationException e) {
+            throw new RuntimeException("Init Error!", e);
+        }
+    }
     @Test
     public void testSendAndReceive() {
         WebServiceTemplate ws = new WebServiceTemplate(marshaller);
-        GetCountryRequest request = new GetCountryRequest();
-        request.setName("Spain");
+        GetEventsRequest request = new GetEventsRequest();
+        GregorianCalendar cal=new GregorianCalendar();
+        cal.setTime(Date.from(Instant.now()));
+        final Instant instant = Instant.now().minusSeconds(3600);
+        GregorianCalendar calFrom=new GregorianCalendar();
+        calFrom.setTime(Date.from(instant));
+
+        request.setDateFrom(datatypeFactory.newXMLGregorianCalendar(calFrom));
+        request.setDateTo(datatypeFactory.newXMLGregorianCalendar(cal));
+        //request.setName("Spain");
 
         assertThat(ws.marshalSendAndReceive("http://localhost:"
                 + port + "/ws", request)).isNotNull();

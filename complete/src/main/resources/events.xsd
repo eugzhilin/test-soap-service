@@ -1,0 +1,38 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:include schemaLocation="authenticate.xsd"/>
+    <xs:include schemaLocation="cars.xsd"/>
+    <xs:include schemaLocation="devices.xsd"/>
+
+
+    <xs:element name="getEventsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dateFrom" type="xs:dateTime"/>
+                <xs:element name="dateTo" type="xs:dateTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getEventsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded"  name="event" type="tns:event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="event">
+        <xs:sequence>
+            <xs:element name="idevent" type="xs:string"/>
+            <xs:element name="iddevice" type="xs:string"/>
+            <xs:element name="coords" type="xs:string"/>
+            <xs:element name="grz" type="xs:string"/>
+            <xs:element name="tsType" type="xs:string"/>
+            <xs:element name="speed" type="xs:string"/>
+            <xs:element name="maker" type="xs:string"/>
+            <xs:element name="model" type="xs:string"/>
+            <xs:element name="media" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
