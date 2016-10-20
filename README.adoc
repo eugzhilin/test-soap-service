@@ -1,3 +1,4 @@
+
 ---
 tags: [SOAP]
 projects: [spring-ws]
@@ -22,6 +23,8 @@ projects: [spring-ws]
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-soap-service
+
+Further http://www.concretepage.com/spring-4/spring-4-soap-web-service-producer-consumer-example-with-tomcat
 
 This guide walks you through the process of creating a SOAP-based web service server with Spring.
 

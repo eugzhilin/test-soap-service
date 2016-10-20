@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.sun.org.apache.xerces.internal.jaxp.datatype.DatatypeFactoryImpl;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
-import io.spring.guides.gs_producing_web_service.GetEventsRequest;
+import its.ws.test.GetEventsRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,8 +75,9 @@ public class ApplicationIntegrationTests {
         request.setDateFrom(datatypeFactory.newXMLGregorianCalendar(calFrom));
         request.setDateTo(datatypeFactory.newXMLGregorianCalendar(cal));
         //request.setName("Spain");
-
-        assertThat(ws.marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request)).isNotNull();
+        final Object o = ws.marshalSendAndReceive("http://localhost:"
+                + port + "/ws", request);
+        assertThat(o).isNotNull();
     }
+
 }

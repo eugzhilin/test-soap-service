@@ -26,9 +26,9 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	@Bean(name = "events")
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema eventsSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("Events");
+		wsdl11Definition.setPortTypeName("getEventsRequest");
 		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
+		wsdl11Definition.setTargetNamespace("urn:test-ws-its");
 		wsdl11Definition.setSchema(eventsSchema);
 		return wsdl11Definition;
 	}
@@ -39,16 +39,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	public XsdSchema eventsSchema() {
 		return new SimpleXsdSchema(new ClassPathResource("events.xsd"));
 	}
-	@Bean
-	public XsdSchema authSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("authenticate.xsd"));
-	}
-	@Bean
-	public XsdSchema devicesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("devices.xsd"));
-	}
-	@Bean
-	public XsdSchema carsSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("cars.xsd"));
-	}
+
 }

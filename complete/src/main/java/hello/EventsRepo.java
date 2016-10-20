@@ -1,7 +1,8 @@
 package hello;
 
 
-import io.spring.guides.gs_producing_web_service.Event;
+
+import its.ws.test.Event;
 import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -16,6 +17,26 @@ public class EventsRepo {
 
 	public List<Event> findEvents(XMLGregorianCalendar from, XMLGregorianCalendar to) {
 
-		return Collections.EMPTY_LIST;
+		List<Event> lst=new ArrayList<Event>();
+		for(int i=0;i<10;i++) {
+			Event ev = new Event();
+			ev.setCoords(RandomData.getCoords());
+			ev.setGrz(RandomData.getGRZ());
+			ev.setIddevice(RandomData.getID());
+			ev.setMaker(RandomData.getMaker());
+			ev.setModel(RandomData.getModel(ev.getMaker()));
+			ev.setSpeed(RandomData.getSpeed().toString());
+			ev.setIdevent(RandomData.getID());
+			ev.setMedia("");
+			ev.setTsType("1");
+			try {
+				ev.setDateEvent(RandomData.getDate(from, to));
+			} catch (Throwable ex) {
+
+			}
+			lst.add(ev);
+		}
+
+		return lst;
 	}
 }
