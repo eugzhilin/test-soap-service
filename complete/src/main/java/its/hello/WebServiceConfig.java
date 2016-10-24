@@ -1,4 +1,4 @@
-package hello;
+package its.hello;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -27,6 +27,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema eventsSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("getEventsRequest");
+		wsdl11Definition.setPortTypeName("getCarsRequest");
 		wsdl11Definition.setLocationUri("/ws");
 		wsdl11Definition.setTargetNamespace("urn:test-ws-its");
 		wsdl11Definition.setSchema(eventsSchema);

@@ -1,4 +1,4 @@
-package hello;
+package its.hello;
 
 import javax.xml.bind.DatatypeConverter;
 import java.util.Calendar;

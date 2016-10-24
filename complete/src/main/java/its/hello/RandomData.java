@@ -1,14 +1,12 @@
-package hello;
+package its.hello;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.sql.*;
 import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.*;
-import java.util.Date;
 
 /**
  * Created by eugin on 10/20/16.
@@ -23,7 +21,9 @@ public class RandomData {
         }
     }
     private static  final String letters="АВЕКМНОРСТУХ";
-
+    private static  final String lettersdigits="1234567890ABCDEFGHIGKLMNOPQASTUVWXYZ-";
+    private static  final String digits="1234567890";
+    private static  final String[] directions=new String[]{"туды","сюды"};
     private static final Random random = new Random();
 
     private static final Map<String, List<String>> makerModel;
@@ -65,6 +65,10 @@ public class RandomData {
         return (new UUID(random.nextInt(),random.nextInt())).toString();
     }
 
+    public static Long GetLongID(){
+        return  random.nextLong();
+    }
+
     public static String getMaker()
     {
         int idx=random.nextInt(3);
@@ -96,7 +100,46 @@ public class RandomData {
 
     }
 
+    public static XMLGregorianCalendar GetRandomDateBefore()
+    {
+        final int offset = random.nextInt(36000);
+        GregorianCalendar cal=new GregorianCalendar();
+        final Instant instant = Instant.now().minusSeconds(offset);
+        cal.setTime(Date.from(instant));
+        return datatypeFactory.newXMLGregorianCalendar(cal);
+    }
+    public static XMLGregorianCalendar GetRandomDateAfter()
+    {
+        final int offset = random.nextInt(36000);
+        GregorianCalendar cal=new GregorianCalendar();
+        final Instant instant = Instant.now().plusSeconds(offset);
+        cal.setTime(Date.from(instant));
+        return datatypeFactory.newXMLGregorianCalendar(cal);
+    }
+    public static String GetRandomString(Integer length)
+    {
+        String result="";
+        for(int i=0;i<length;i++)
+        {
+            result+=lettersdigits.charAt(random.nextInt(lettersdigits.length()));
+        }
+        return result;
+    }
+    public static String GetRandomNumString(Integer length)
+    {
+        String result="";
+        for(int i=0;i<length;i++)
+        {
+            result+=digits.charAt(random.nextInt(digits.length()));
+        }
+        return result;
+    }
+    public static String getDirection()
+    {
 
+        return directions[random.nextInt(2)];
+
+    }
 //        private final char[] buf;
 //
 //        public RandomString(int length) {

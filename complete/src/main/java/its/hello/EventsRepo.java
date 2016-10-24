@@ -1,4 +1,4 @@
-package hello;
+package its.hello;
 
 
 
@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @Component

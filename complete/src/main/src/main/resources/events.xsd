@@ -33,14 +33,14 @@
     </xs:complexType>
     <xs:element name="getCarsRequest">
         <xs:complexType>
-            <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:sequence maxOccurs="1">
                 <xs:element name="grz" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="getCarsResponse">
         <xs:complexType>
-            <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:sequence>
                 <xs:element name="car" type="tns:car"/>
             </xs:sequence>
         </xs:complexType>
