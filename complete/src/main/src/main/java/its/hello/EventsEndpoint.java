@@ -1,12 +1,14 @@
 package its.hello;
 
-
 import its.ws.test.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+import javax.annotation.Resource;
 
 @Endpoint
 public class EventsEndpoint {
@@ -18,6 +20,9 @@ public class EventsEndpoint {
 	private CarsRepo carsRepo;
 	@Autowired
 	private DeviceRepo deviceRepo;
+
+	@Resource
+	ApplicationContext context;
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getEventsRequest")
 	@ResponsePayload

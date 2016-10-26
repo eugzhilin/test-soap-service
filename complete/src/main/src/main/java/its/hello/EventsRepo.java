@@ -25,6 +25,7 @@ public class EventsRepo {
 			ev.setModel(RandomData.getModel(ev.getMaker()));
 			ev.setSpeed(RandomData.getSpeed().toString());
 			ev.setIdevent(RandomData.getID());
+			ev.setDateEvent(RandomData.getDate(from,to));
 			ev.setMedia("");
 			ev.setTsType("1");
 			try {

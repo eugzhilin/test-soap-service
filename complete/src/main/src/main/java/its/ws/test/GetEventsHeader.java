@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="device" type="{urn:test-ws-its}device"/>
+ *         &lt;element name="APIKEY" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "device"
+    "apikey"
 })
-@XmlRootElement(name = "getDeviceResponse")
-public class GetDeviceResponse {
+@XmlRootElement(name = "getEventsHeader")
+public class GetEventsHeader {
 
-    @XmlElement(required = true)
-    protected Device device;
+    @XmlElement(name = "APIKEY", required = true)
+    protected String apikey;
 
     /**
-     * Gets the value of the device property.
+     * Gets the value of the apikey property.
      * 
      * @return
      *     possible object is
-     *     {@link Device }
+     *     {@link String }
      *     
      */
-    public Device getDevice() {
-        return device;
+    public String getAPIKEY() {
+        return apikey;
     }
 
     /**
-     * Sets the value of the device property.
+     * Sets the value of the apikey property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Device }
+     *     {@link String }
      *     
      */
-    public void setDevice(Device value) {
-        this.device = value;
+    public void setAPIKEY(String value) {
+        this.apikey = value;
     }
 
 }

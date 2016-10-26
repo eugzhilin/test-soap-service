@@ -1,14 +1,33 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:tns="urn:test-ws-its"
-           targetNamespace="urn:test-ws-its" elementFormDefault="qualified">
-
+           targetNamespace="urn:test-ws-its" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="getDeviceHeader">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="APIKEY" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getCarsHeader">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="APIKEY" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getEventsHeader">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="APIKEY" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="getDeviceRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="iddevice" type="xs:integer"/>
             </xs:sequence>
         </xs:complexType>
-
     </xs:element>
     <xs:element name="getDeviceResponse">
         <xs:complexType>
@@ -71,7 +90,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
     <xs:element name="getEventsRequest">
         <xs:complexType>
             <xs:sequence>

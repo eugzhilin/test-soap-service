@@ -37,7 +37,7 @@ public class RandomData {
     public static String getGRZ() {
         char[] text = new char[11];
         text[0] = letters.charAt(random.nextInt(letters.length()));
-        for (int i=1;i<3;i++) {
+        for (int i=1;i<4;i++) {
             text[i]=(char)(random.nextInt(9)+'0');
         }
         text[4] = letters.charAt(random.nextInt(letters.length()));
@@ -90,13 +90,21 @@ public class RandomData {
     }
 
 
-    public static XMLGregorianCalendar getDate(XMLGregorianCalendar from, XMLGregorianCalendar to) throws DatatypeConfigurationException {
-        final Duration duration = DatatypeFactory.newInstance().newDuration(to.toGregorianCalendar().getTimeInMillis() - from.toGregorianCalendar().getTimeInMillis());
+    public static XMLGregorianCalendar getDate(XMLGregorianCalendar from, XMLGregorianCalendar to) {
+        Duration duration;
+        try {
+            final Long seconds = (to.toGregorianCalendar().getTime().toInstant().toEpochMilli() - from.toGregorianCalendar().getTime().toInstant().toEpochMilli())/1000;
+            final int offset = random.nextInt(seconds.intValue());
+            final XMLGregorianCalendar clone =(XMLGregorianCalendar) from.clone();
+            clone.add(DatatypeFactory.newInstance().newDuration(offset*1000));
+            return clone;
+        } catch (DatatypeConfigurationException e) {
+            e.printStackTrace();
 
-        final int offset = random.nextInt(duration.getSeconds());
-        final XMLGregorianCalendar clone =(XMLGregorianCalendar) from.clone();
-        clone.add(DatatypeFactory.newInstance().newDuration(offset*1000));
-        return clone;
+        }
+
+        return null;
+
 
     }
 

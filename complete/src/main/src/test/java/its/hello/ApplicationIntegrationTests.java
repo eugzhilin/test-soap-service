@@ -1,7 +1,5 @@
 
-
-package its;
-
+package its.hello;
 import its.ws.test.GetEventsRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -21,7 +19,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = {its.hello.Application.class})
 public class ApplicationIntegrationTests {
 
     private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
