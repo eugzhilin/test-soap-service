@@ -7,6 +7,7 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import org.springframework.ws.soap.security.wss4j2.Wss4jSecurityValidationException;
 
 import javax.annotation.Resource;
 
@@ -42,9 +43,23 @@ public class EventsEndpoint {
 	}
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getDeviceRequest")
 	@ResponsePayload
-	public GetDeviceResponse getCars(@RequestPayload GetDeviceRequest request) {
+	public GetDeviceResponse getDevices(@RequestPayload GetDeviceRequest request) {
 		GetDeviceResponse getDeviceResponse=new GetDeviceResponse();
 		getDeviceResponse.setDevice(deviceRepo.findDevice(request.getIddevice()));
 		return getDeviceResponse;
+	}
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAuthenticateRequest")
+	@ResponsePayload
+	public GetAuthenticateResponse getAuth(@RequestPayload GetAuthenticateRequest request) {
+		GetAuthenticateResponse response=new GetAuthenticateResponse();
+		if(request.getLogin().equals("admin") && request.getPassword().equals("admin"))
+		{
+			response.setCode("1234567890");
+		}
+		else
+		{
+			throw new Wss4jSecurityValidationException("Access denied");
+		}
+		return response;
 	}
 }

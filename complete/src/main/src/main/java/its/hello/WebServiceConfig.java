@@ -5,12 +5,11 @@ import header.HeaderSoap11Provider;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
-import org.springframework.ws.soap.security.wss4j2.Wss4jSecurityInterceptor;
-import org.springframework.ws.soap.security.wss4j2.callback.SimplePasswordValidationCallbackHandler;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.WsdlDefinition;
 import org.springframework.ws.wsdl.wsdl11.ProviderBasedWsdl4jDefinition;
@@ -25,7 +24,7 @@ import java.util.Properties;
 
 @EnableWs
 @Configuration
-
+@ComponentScan("its.hello")
 public class WebServiceConfig extends WsConfigurerAdapter {
 	@Bean
 	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
@@ -67,25 +66,27 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	}
 
 	@Bean
-	public SimplePasswordValidationCallbackHandler securityCallbackHandler(){
-		SimplePasswordValidationCallbackHandler callbackHandler = new SimplePasswordValidationCallbackHandler();
+	public ApikeyValidationCallback apiCallbackHandler(){
+		ApikeyValidationCallback callbackHandler = new ApikeyValidationCallback();
 		Properties users = new Properties();
 		users.setProperty("admin", "secret");
+		users.setProperty("APIKEY", "1234567890");
 		callbackHandler.setUsers(users);
 		return callbackHandler;
 	}
 
 	@Bean
-	public Wss4jSecurityInterceptor securityInterceptor(){
-		Wss4jSecurityInterceptor securityInterceptor = new Wss4jSecurityInterceptor();
-		securityInterceptor.setValidationActions("Timestamp UsernameToken");
-		securityInterceptor.setValidationCallbackHandler(securityCallbackHandler());
-		return securityInterceptor;
+	public HeaderInterceptor headerInterceptor(){
+		final HeaderInterceptor interceptor= new HeaderInterceptor();
+		interceptor.setSkipValidate("getAuthenticateRequest");
+		interceptor.setValidationCallbackHandler(apiCallbackHandler());
+		return interceptor;
 	}
 
 	@Override
 	public void addInterceptors(List interceptors) {
-		interceptors.add(securityInterceptor());
+
+		interceptors.add(headerInterceptor());
 	}
 
 }
